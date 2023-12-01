@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "github"
 include(":app")
- 
+include(":data")
+include(":domain")
