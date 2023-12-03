@@ -26,9 +26,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.m21droid.github.Const.ERROR
 import com.m21droid.github.R
 import com.m21droid.github.domain.models.UserModel
+import com.m21droid.github.presentation.Const.ERROR
+import com.m21droid.github.presentation.Const.padding
 import com.m21droid.github.presentation.previews.UsersPreview
 import com.m21droid.github.presentation.views.MainText
 import com.m21droid.github.presentation.views.WhiteText
@@ -53,7 +54,7 @@ fun UsersScreen(
     onClickSort: () -> Unit = {},
     onClickItem: (UserModel) -> Unit = {},
 ) {
-    val space = 12.dp
+    val space = 16.dp
     val value = state.value
     Scaffold(
         topBar = {
@@ -90,7 +91,7 @@ fun UsersScreen(
             modifier = Modifier
                 .padding(it)
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(padding),
             contentAlignment = Alignment.Center
         ) {
             when (value) {

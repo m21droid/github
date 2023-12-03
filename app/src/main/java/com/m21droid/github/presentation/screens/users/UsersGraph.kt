@@ -16,7 +16,7 @@ fun NavGraphBuilder.usersGraph(navigation: NavHostController) =
         }
 
         val onClickItem = { user: UserModel ->
-            val route = AppRoute.NewWords.route(user.login)
+            val route = AppRoute.Details.route(user.login)
             navigation.navigate(route)
         }
 

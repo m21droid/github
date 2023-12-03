@@ -1,10 +1,8 @@
-package com.m21droid.github
+package com.m21droid.github.presentation
 
 import androidx.compose.ui.unit.dp
 
 object Const {
-
-    const val ARG_USER_PATH = "arg_user_path"
 
     const val ERROR = "Error"
 

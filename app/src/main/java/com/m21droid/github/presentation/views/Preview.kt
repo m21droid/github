@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
-import com.m21droid.github.Const.padding
+import com.m21droid.github.presentation.Const.padding
 import kotlin.math.min
 
 @Composable

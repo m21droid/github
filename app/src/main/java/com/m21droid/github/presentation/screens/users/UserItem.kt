@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +30,7 @@ import coil.request.ImageRequest
 import com.m21droid.github.R
 import com.m21droid.github.domain.models.UserModel
 import com.m21droid.github.presentation.previews.UserPreview
+import com.m21droid.github.presentation.views.MainText
 
 @Preview
 @Composable
@@ -64,7 +64,7 @@ fun UserItem(
             error = rememberVectorPainter(image = image),
             contentScale = ContentScale.Fit,
         )
-        Text(modifier = Modifier.weight(1.0f), text = user.login)
+        MainText(modifier = Modifier.weight(1.0f), text = user.login)
         Icon(
             Icons.Filled.Star,
             contentDescription = null,

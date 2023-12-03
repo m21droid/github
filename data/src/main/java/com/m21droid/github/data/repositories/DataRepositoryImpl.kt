@@ -21,14 +21,8 @@ class DataRepositoryImpl(
 
         return remoteDataSource.getAllUsers().map { state ->
             when (state) {
-                ResponseState.Loading -> {
-                    ResponseState.Loading
-                }
-
-                is ResponseState.Failure -> {
-                    ResponseState.Failure(state.throwable)
-                }
-
+                ResponseState.Loading -> ResponseState.Loading
+                is ResponseState.Failure -> ResponseState.Failure(state.throwable)
                 is ResponseState.Success -> {
                     val list = state.data.map {
                         it.toUserModel()
@@ -45,14 +39,8 @@ class DataRepositoryImpl(
 
         return remoteDataSource.getUserDetails(login).map { state ->
             when (state) {
-                ResponseState.Loading -> {
-                    ResponseState.Loading
-                }
-
-                is ResponseState.Failure -> {
-                    ResponseState.Failure(state.throwable)
-                }
-
+                ResponseState.Loading -> ResponseState.Loading
+                is ResponseState.Failure -> ResponseState.Failure(state.throwable)
                 is ResponseState.Success -> {
                     val user = state.data.toUserModel()
                     ResponseState.Success(user)

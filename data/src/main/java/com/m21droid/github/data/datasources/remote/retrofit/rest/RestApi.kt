@@ -4,7 +4,7 @@ import com.m21droid.github.data.datasources.remote.retrofit.dto.UserDTO
 import com.m21droid.github.data.datasources.remote.retrofit.dto.UserDetailsDTO
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface RestApi {
 
@@ -12,6 +12,6 @@ interface RestApi {
     suspend fun users(): Response<List<UserDTO>>
 
     @GET("users/{login}")
-    suspend fun user(@Query("login") login: String): Response<UserDetailsDTO>
+    suspend fun user(@Path("login") login: String): Response<UserDetailsDTO>
 
 }
