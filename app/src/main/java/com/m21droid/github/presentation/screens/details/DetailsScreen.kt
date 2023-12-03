@@ -1,19 +1,22 @@
 package com.m21droid.github.presentation.screens.details
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -21,11 +24,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,8 +40,8 @@ import com.m21droid.github.R
 import com.m21droid.github.domain.models.UserDetailsModel
 import com.m21droid.github.presentation.Const.ERROR
 import com.m21droid.github.presentation.previews.DetailsPreview
+import com.m21droid.github.presentation.views.AppTopAppBar
 import com.m21droid.github.presentation.views.MainText
-import com.m21droid.github.presentation.views.WhiteText
 
 @Preview
 @Composable
@@ -57,21 +60,25 @@ fun DetailsScreenPreview2(@PreviewParameter(DetailsPreview::class) data: UserDet
 @Composable
 fun DetailsScreen(
     state: State<DetailsState>,
+    onClickBack: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-                    .background(colorResource(id = R.color.purple_200))
-                    .padding(16.dp)
-            ) {
-                WhiteText(
-                    text = "Користувачі GitHub",
-                    modifier = Modifier.align(Alignment.CenterStart)
-                )
-            }
+            AppTopAppBar(
+                title = {
+                    Text(text = "Деталі користувача")
+                },
+                navigationIcon = {
+                    Icon(
+                        Icons.Filled.ArrowBack,
+                        contentDescription = null,
+                        modifier = Modifier.clickable(onClick = onClickBack)
+                    )
+                },
+                actions = {
+                    Icon(Icons.Filled.Star, contentDescription = null, tint = Color.Yellow)
+                }
+            )
         }
     ) {
         Box(

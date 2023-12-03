@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.m21droid.github.domain.models.ResponseState
 import com.m21droid.github.domain.usecases.GetUserDetailsUseCase
 import com.m21droid.github.logD
-import com.m21droid.github.presentation.navigation.NavConst.ARG_DETAILS
+import com.m21droid.github.presentation.navigation.NavConst.ARG_LOGIN
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,8 +23,7 @@ class DetailsViewModel @Inject constructor(
     internal val detailsState: State<DetailsState> = _detailsState
 
     init {
-        val login: String? = savedStateHandle[ARG_DETAILS]
-        login?.let {
+        savedStateHandle.get<String?>(ARG_LOGIN)?.let {
             getDetails(it)
         }
     }

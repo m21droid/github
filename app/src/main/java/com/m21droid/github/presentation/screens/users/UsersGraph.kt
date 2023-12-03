@@ -11,12 +11,12 @@ fun NavGraphBuilder.usersGraph(navigation: NavHostController) =
     composable(route = AppRoute.Users.route) {
         val viewModel = hiltViewModel<UsersViewModel>()
 
-        val onClickSort = {
+        val onClickSort: () -> Unit = {
             viewModel.sort()
         }
 
-        val onClickItem = { user: UserModel ->
-            val route = AppRoute.Details.route(user.login)
+        val onClickItem: (UserModel) -> Unit = {
+            val route = AppRoute.Details.route(it.login)
             navigation.navigate(route)
         }
 
