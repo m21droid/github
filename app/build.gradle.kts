@@ -69,6 +69,9 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.coil.compose)
     implementation(libs.hilt.android)
     implementation(libs.retrofit)
     kapt(libs.hilt.android.compiler)

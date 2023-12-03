@@ -14,42 +14,42 @@ class RemoteDataSourceImpl(
     private val restApi: RestApi,
 ) : RemoteDataSource {
 
-    override fun getUsers(): Flow<ResponseState<List<UserDTO>>> = flow {
+    override fun getAllUsers(): Flow<ResponseState<List<UserDTO>>> = flow {
         try {
             emit(ResponseState.Loading)
 
-            Log.d(TAG, "getUsers: ")
-            val execute = restApi.users().execute()
+            Log.d(TAG, "getAllUsers: ")
+            val execute = restApi.users()
             val code = execute.code()
             val body = execute.body() ?: listOf()
-            Log.d(TAG, "getUsers: code - $code, body - $body")
+            Log.d(TAG, "getAllUsers: code - $code, body - $body")
             if (code == 200) {
                 emit(ResponseState.Success(body))
             } else {
                 emit(ResponseState.Failure(IOException(RESPONSE_CODE)))
             }
         } catch (e: IOException) {
-            Log.e(TAG, "getUsers: error - ${e.message}")
+            Log.e(TAG, "getAllUsers: error - ${e.message}")
             emit(ResponseState.Failure(e))
         }
     }
 
-    override fun getUser(login: String): Flow<ResponseState<UserDetailsDTO>> = flow {
+    override fun getUserDetails(login: String): Flow<ResponseState<UserDetailsDTO>> = flow {
         try {
             emit(ResponseState.Loading)
 
-            Log.d(TAG, "getUser: login - $login")
-            val execute = restApi.user(login).execute()
+            Log.d(TAG, "getUserDetails: login - $login")
+            val execute = restApi.user(login)
             val code = execute.code()
             val body = execute.body()
-            Log.d(TAG, "getUser: code - $code, body - $body")
+            Log.d(TAG, "getUserDetails: code - $code, body - $body")
             if (code == 200 && body != null) {
                 emit(ResponseState.Success(body))
             } else {
                 emit(ResponseState.Failure(IOException(RESPONSE_CODE)))
             }
         } catch (e: IOException) {
-            Log.e(TAG, "getUser: error - ${e.message}")
+            Log.e(TAG, "getUserDetails: error - ${e.message}")
             emit(ResponseState.Failure(e))
         }
     }

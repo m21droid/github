@@ -9,6 +9,6 @@ interface DataRepository {
 
     fun getAllUsers(): Flow<ResponseState<List<UserModel>>>
 
-    fun getUser(login: String): Flow<ResponseState<UserDetailsModel>>
+    fun getUserDetails(login: String): Flow<ResponseState<UserDetailsModel>>
 
 }

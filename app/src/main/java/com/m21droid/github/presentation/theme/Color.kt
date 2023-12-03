@@ -1,4 +1,4 @@
-package com.m21droid.github.ui.theme
+package com.m21droid.github.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

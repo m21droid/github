@@ -1,4 +1,4 @@
-package com.m21droid.github.ui.theme
+package com.m21droid.github.presentation.theme
 
 import android.app.Activity
 import android.os.Build

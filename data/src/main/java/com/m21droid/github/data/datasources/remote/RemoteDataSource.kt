@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface RemoteDataSource {
 
-    fun getUsers(): Flow<ResponseState<List<UserDTO>>>
+    fun getAllUsers(): Flow<ResponseState<List<UserDTO>>>
 
-    fun getUser(login: String): Flow<ResponseState<UserDetailsDTO>>
+    fun getUserDetails(login: String): Flow<ResponseState<UserDetailsDTO>>
 
 }

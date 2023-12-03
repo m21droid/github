@@ -10,7 +10,7 @@ class GetUserUseCase(
 ) : BaseUseCase<String, Flow<ResponseState<UserDetailsModel>>> {
 
     override fun execute(input: String): Flow<ResponseState<UserDetailsModel>> {
-        return dataRepository.getUser(input)
+        return dataRepository.getUserDetails(input)
     }
 
 }

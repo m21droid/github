@@ -13,9 +13,9 @@ import kotlinx.coroutines.flow.map
 class DataRepositoryImpl(private val remoteDataSource: RemoteDataSource) : DataRepository {
 
     override fun getAllUsers(): Flow<ResponseState<List<UserModel>>> {
-        Log.i(TAG, "getAllBooks: ")
+        Log.i(TAG, "getAllUsers: ")
 
-        return remoteDataSource.getUsers().map { state ->
+        return remoteDataSource.getAllUsers().map { state ->
             when (state) {
                 ResponseState.Loading -> {
                     ResponseState.Loading
@@ -36,10 +36,10 @@ class DataRepositoryImpl(private val remoteDataSource: RemoteDataSource) : DataR
 
     }
 
-    override fun getUser(login: String): Flow<ResponseState<UserDetailsModel>> {
-        Log.i(TAG, "getUser: login - $login")
+    override fun getUserDetails(login: String): Flow<ResponseState<UserDetailsModel>> {
+        Log.i(TAG, "getUserDetails: login - $login")
 
-        return remoteDataSource.getUser(login).map { state ->
+        return remoteDataSource.getUserDetails(login).map { state ->
             when (state) {
                 ResponseState.Loading -> {
                     ResponseState.Loading
