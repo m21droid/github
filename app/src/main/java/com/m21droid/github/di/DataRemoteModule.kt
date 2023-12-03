@@ -1,12 +1,15 @@
 package com.m21droid.github.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.provider.Settings.Secure.*
+import com.m21droid.github.data.datasources.local.LocalDataSource
+import com.m21droid.github.data.datasources.local.sharedpreferences.LocalDataSourceImpl
 import com.m21droid.github.data.datasources.remote.RemoteDataSource
-import com.m21droid.github.data.datasources.remote.RemoteDataSourceImpl
-import com.m21droid.github.data.datasources.remote.rest.RestApi
-import com.m21droid.github.data.datasources.remote.rest.RestClient
-import com.m21droid.github.data.datasources.remote.rest.RestModule
+import com.m21droid.github.data.datasources.remote.retrofit.RemoteDataSourceImpl
+import com.m21droid.github.data.datasources.remote.retrofit.rest.RestApi
+import com.m21droid.github.data.datasources.remote.retrofit.rest.RestClient
+import com.m21droid.github.data.datasources.remote.retrofit.rest.RestModule
 import com.m21droid.github.data.repositories.DataRepositoryImpl
 import com.m21droid.github.domain.repositories.DataRepository
 import dagger.Module
@@ -43,10 +46,24 @@ class DataRemoteModule {
         return RemoteDataSourceImpl(restApi)
     }
 
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
+        context.getSharedPreferences("pref", Context.MODE_PRIVATE)
+
     @Provides
     @Singleton
-    fun provideDataRepository(remoteDataSource: RemoteDataSource): DataRepository {
-        return DataRepositoryImpl(remoteDataSource)
+    fun provideLocalDataSource(preferences: SharedPreferences): LocalDataSource {
+        return LocalDataSourceImpl(preferences)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataRepository(
+        remoteDataSource: RemoteDataSource,
+        localDataSource: LocalDataSource,
+    ): DataRepository {
+        return DataRepositoryImpl(remoteDataSource, localDataSource)
     }
 
 }

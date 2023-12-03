@@ -12,7 +12,7 @@ fun NavGraphBuilder.usersGraph(navigation: NavHostController) =
         val viewModel = hiltViewModel<UsersViewModel>()
 
         val onClickSort = {
-            viewModel.changeSort()
+            viewModel.sort()
         }
 
         val onClickItem = { user: UserModel ->

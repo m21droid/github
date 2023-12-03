@@ -2,7 +2,9 @@ package com.m21droid.github.di
 
 import com.m21droid.github.domain.repositories.DataRepository
 import com.m21droid.github.domain.usecases.GetAllUsersUseCase
-import com.m21droid.github.domain.usecases.GetUserUseCase
+import com.m21droid.github.domain.usecases.GetSelectedUsersUseCase
+import com.m21droid.github.domain.usecases.GetUserDetailsUseCase
+import com.m21droid.github.domain.usecases.SaveSelectedUsersUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +20,18 @@ class DomainModule {
     }
 
     @Provides
-    fun provideGetUserUseCase(dataRepository: DataRepository): GetUserUseCase {
-        return GetUserUseCase(dataRepository)
+    fun provideGetUserUseCase(dataRepository: DataRepository): GetUserDetailsUseCase {
+        return GetUserDetailsUseCase(dataRepository)
+    }
+
+    @Provides
+    fun provideGetSelectedUsersUseCase(dataRepository: DataRepository): GetSelectedUsersUseCase {
+        return GetSelectedUsersUseCase(dataRepository)
+    }
+
+    @Provides
+    fun provideSaveSelectedUsersUseCase(dataRepository: DataRepository): SaveSelectedUsersUseCase {
+        return SaveSelectedUsersUseCase(dataRepository)
     }
 
 }

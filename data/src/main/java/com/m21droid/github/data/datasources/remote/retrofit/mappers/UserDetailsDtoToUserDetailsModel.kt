@@ -1,6 +1,6 @@
-package com.m21droid.github.data.datasources.remote.mappers
+package com.m21droid.github.data.datasources.remote.retrofit.mappers
 
-import com.m21droid.github.data.datasources.remote.dto.UserDetailsDTO
+import com.m21droid.github.data.datasources.remote.retrofit.dto.UserDetailsDTO
 import com.m21droid.github.domain.models.UserDetailsModel
 
 fun UserDetailsDTO.toUserModel(): UserDetailsModel {

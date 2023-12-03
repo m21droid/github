@@ -4,5 +4,4 @@ data class UserModel(
     val login: String,
     val id: Int,
     val avatarUrl: String,
-    var isSelected: Boolean = false,
 )

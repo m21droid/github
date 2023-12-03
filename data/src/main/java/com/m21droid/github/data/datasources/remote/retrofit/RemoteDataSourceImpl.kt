@@ -1,10 +1,11 @@
-package com.m21droid.github.data.datasources.remote
+package com.m21droid.github.data.datasources.remote.retrofit
 
 import android.util.Log
-import com.m21droid.github.data.datasources.remote.dto.UserDTO
-import com.m21droid.github.data.datasources.remote.dto.UserDetailsDTO
-import com.m21droid.github.data.datasources.remote.rest.Const.RESPONSE_CODE
-import com.m21droid.github.data.datasources.remote.rest.RestApi
+import com.m21droid.github.data.datasources.remote.RemoteDataSource
+import com.m21droid.github.data.datasources.remote.retrofit.dto.UserDTO
+import com.m21droid.github.data.datasources.remote.retrofit.dto.UserDetailsDTO
+import com.m21droid.github.data.datasources.remote.retrofit.rest.Const.RESPONSE_CODE
+import com.m21droid.github.data.datasources.remote.retrofit.rest.RestApi
 import com.m21droid.github.domain.models.ResponseState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,14 +16,16 @@ class RemoteDataSourceImpl(
 ) : RemoteDataSource {
 
     override fun getAllUsers(): Flow<ResponseState<List<UserDTO>>> = flow {
+        Log.d(TAG, "getAllUsers: ")
+
         try {
             emit(ResponseState.Loading)
 
-            Log.d(TAG, "getAllUsers: ")
             val execute = restApi.users()
             val code = execute.code()
             val body = execute.body() ?: listOf()
             Log.d(TAG, "getAllUsers: code - $code, body - $body")
+
             if (code == 200) {
                 emit(ResponseState.Success(body))
             } else {
@@ -35,14 +38,16 @@ class RemoteDataSourceImpl(
     }
 
     override fun getUserDetails(login: String): Flow<ResponseState<UserDetailsDTO>> = flow {
+        Log.d(TAG, "getUserDetails: login - $login")
+
         try {
             emit(ResponseState.Loading)
 
-            Log.d(TAG, "getUserDetails: login - $login")
             val execute = restApi.user(login)
             val code = execute.code()
             val body = execute.body()
             Log.d(TAG, "getUserDetails: code - $code, body - $body")
+
             if (code == 200 && body != null) {
                 emit(ResponseState.Success(body))
             } else {

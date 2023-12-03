@@ -5,7 +5,7 @@ import com.m21droid.github.domain.models.UserDetailsModel
 import com.m21droid.github.domain.repositories.DataRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetUserUseCase(
+class GetUserDetailsUseCase(
     private val dataRepository: DataRepository,
 ) : BaseUseCase<String, Flow<ResponseState<UserDetailsModel>>> {
 

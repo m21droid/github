@@ -1,6 +1,9 @@
 package com.m21droid.github.presentation.screens.users
 
+import androidx.compose.runtime.MutableState
 import com.m21droid.github.domain.models.UserModel
+
+typealias UsersStateData = List<Pair<UserModel, MutableState<Boolean>>>
 
 sealed class UsersState {
 
@@ -10,8 +13,8 @@ sealed class UsersState {
 
     object Empty : UsersState()
 
-    data class DisplayNotSort(val users: List<UserModel>) : UsersState()
+    data class Display(val data: UsersStateData) : UsersState()
 
-    data class DisplaySort(val users: List<UserModel>) : UsersState()
+    data class DisplaySort(val data: UsersStateData) : UsersState()
 
 }

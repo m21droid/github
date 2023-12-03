@@ -35,15 +35,15 @@ import com.m21droid.github.presentation.views.WhiteText
 
 @Preview
 @Composable
-fun UsersScreenPreview1(@PreviewParameter(UsersPreview::class) users: List<UserModel>) {
-    val state = remember { mutableStateOf(UsersState.DisplayNotSort(users)) }
+fun UsersScreenPreview1(@PreviewParameter(UsersPreview::class) data: UsersStateData) {
+    val state = remember { mutableStateOf(UsersState.Display(data)) }
     UsersScreen(state = state)
 }
 
 @Preview
 @Composable
-fun UsersScreenPreview2(@PreviewParameter(UsersPreview::class) users: List<UserModel>) {
-    val state = remember { mutableStateOf(UsersState.DisplaySort(users)) }
+fun UsersScreenPreview2(@PreviewParameter(UsersPreview::class) data: UsersStateData) {
+    val state = remember { mutableStateOf(UsersState.DisplaySort(data)) }
     UsersScreen(state = state)
 }
 
@@ -69,7 +69,7 @@ fun UsersScreen(
                     modifier = Modifier.align(Alignment.CenterStart)
                 )
                 val color = when (value) {
-                    is UsersState.DisplayNotSort -> Color.White
+                    is UsersState.Display -> Color.White
                     is UsersState.DisplaySort -> Color.Yellow
                     else -> null
                 }
@@ -106,17 +106,18 @@ fun UsersScreen(
                     MainText(text = "Немає користувачів")
                 }
 
-                is UsersState.DisplayNotSort -> {
+                is UsersState.Display -> {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(space)
                     ) {
-                        items(value.users.size) { index ->
-                            val user = value.users[index]
+                        items(value.data.size) { index ->
+                            val user = value.data[index]
                             UserItem(
-                                user = user,
+                                user = user.first,
+                                state = user.second,
                                 modifier = Modifier.clickable {
-                                    onClickItem(user)
+                                    onClickItem(user.first)
                                 }
                             )
                         }
@@ -124,21 +125,24 @@ fun UsersScreen(
                 }
 
                 is UsersState.DisplaySort -> {
-                    val users = value.users.sortedBy { user ->
-                        user.login.lowercase()
+                    val data = value.data.sortedBy { user ->
+                        user.first.login.lowercase()
                     }
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(space)
                     ) {
-                        items(users.size) { index ->
-                            val user = users[index]
+                        items(data.size) { index ->
+                            val user = data[index].first
                             val first = user.login.first().uppercase()
-                            if (index == 0 || first != users[index - 1].login.first().uppercase()) {
+                            if (index == 0 ||
+                                first != data[index - 1].first.login.first().uppercase()
+                            ) {
                                 MainText(text = first, modifier = Modifier.padding(bottom = space))
                             }
                             UserItem(
                                 user = user,
+                                state = data[index].second,
                                 modifier = Modifier.clickable {
                                     onClickItem(user)
                                 }

@@ -11,4 +11,8 @@ interface DataRepository {
 
     fun getUserDetails(login: String): Flow<ResponseState<UserDetailsModel>>
 
+    fun getSelectedUsers(): Flow<ResponseState<List<Int>>>
+
+    fun saveSelectedUsers(users: List<UserModel>)
+
 }

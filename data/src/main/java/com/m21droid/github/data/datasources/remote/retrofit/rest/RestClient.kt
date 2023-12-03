@@ -1,10 +1,10 @@
-package com.m21droid.github.data.datasources.remote.rest
+package com.m21droid.github.data.datasources.remote.retrofit.rest
 
 import android.content.Context
 import com.m21droid.github.data.BuildConfig.DEBUG
-import com.m21droid.github.data.datasources.remote.rest.Const.HTTP_CACHE
-import com.m21droid.github.data.datasources.remote.rest.Const.MAX_SIZE
-import com.m21droid.github.data.datasources.remote.rest.Const.TIMEOUT
+import com.m21droid.github.data.datasources.remote.retrofit.rest.Const.HTTP_CACHE
+import com.m21droid.github.data.datasources.remote.retrofit.rest.Const.MAX_SIZE
+import com.m21droid.github.data.datasources.remote.retrofit.rest.Const.TIMEOUT
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

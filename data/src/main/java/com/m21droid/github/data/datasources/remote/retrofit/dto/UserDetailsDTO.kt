@@ -1,8 +1,8 @@
-package com.m21droid.github.data.datasources.remote.dto
+package com.m21droid.github.data.datasources.remote.retrofit.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class UserDTO(
+data class UserDetailsDTO(
     @SerializedName("login")
     val login: String?,
     @SerializedName("id")
@@ -39,4 +39,22 @@ data class UserDTO(
     val type: String?,
     @SerializedName("site_admin")
     val siteAdmin: Boolean?,
+    @SerializedName("name")
+    val name: String?,
+    @SerializedName("company")
+    val company: String?,
+    @SerializedName("blog")
+    val blog: String?,
+    @SerializedName("location")
+    val location: String?,
+    @SerializedName("email")
+    val email: String?,
+    @SerializedName("hireable")
+    val hireable: String?,
+    @SerializedName("bio")
+    val bio: String?,
+    @SerializedName("twitter_username")
+    val twitterUsername: String?,
+    @SerializedName("public_repos")
+    val publicRepos: Int?,
 )

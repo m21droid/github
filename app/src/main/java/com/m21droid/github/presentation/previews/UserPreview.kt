@@ -9,20 +9,17 @@ class UserPreview : PreviewParameterProvider<UserModel> {
         UserModel(
             login = "mojombo",
             id = 1,
-            avatarUrl = "https://avatars.githubusercontent.com/u/1?v=4",
-            isSelected = true
+            avatarUrl = "https://avatars.githubusercontent.com/u/1?v=4"
         ),
         UserModel(
             login = "defunkt",
             id = 2,
-            avatarUrl = "https://avatars.githubusercontent.com/u/2?v=4",
-            isSelected = false
+            avatarUrl = "https://avatars.githubusercontent.com/u/2?v=4"
         ),
         UserModel(
             login = "pjhyett",
             id = 3,
-            avatarUrl = "https://avatars.githubusercontent.com/u/3?v=4",
-            isSelected = true
+            avatarUrl = "https://avatars.githubusercontent.com/u/3?v=4"
         )
     )
 

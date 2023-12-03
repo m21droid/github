@@ -1,4 +1,4 @@
-package com.m21droid.github.data.datasources.remote.rest
+package com.m21droid.github.data.datasources.remote.retrofit.rest
 
 object Const {
 

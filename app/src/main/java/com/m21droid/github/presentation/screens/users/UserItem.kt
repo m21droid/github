@@ -11,6 +11,9 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,21 +31,19 @@ import coil.request.ImageRequest
 import com.m21droid.github.R
 import com.m21droid.github.domain.models.UserModel
 import com.m21droid.github.presentation.previews.UserPreview
-import com.m21droid.github.presentation.views.PreviewBox
 
 @Preview
 @Composable
 fun UserItemPreview(@PreviewParameter(UserPreview::class) user: UserModel) {
-    PreviewBox {
-        UserItem(user = user)
-    }
+    val state = remember { mutableStateOf(user.id % 2 == 1) }
+    UserItem(user = user, state = state)
 }
 
 @Composable
 fun UserItem(
     user: UserModel,
+    state: MutableState<Boolean>,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
 ) {
     val size = 64.dp
     Row(
@@ -67,8 +68,10 @@ fun UserItem(
         Icon(
             Icons.Filled.Star,
             contentDescription = null,
-            modifier = Modifier.clickable(onClick = onClick),
-            tint = if (user.isSelected) Color.Yellow else Color.LightGray
+            modifier = Modifier.clickable {
+                state.value = !state.value
+            },
+            tint = if (state.value) Color.Yellow else Color.LightGray
         )
     }
 }
