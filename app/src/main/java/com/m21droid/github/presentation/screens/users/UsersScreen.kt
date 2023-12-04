@@ -11,6 +11,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,7 @@ import com.m21droid.github.presentation.Const.padding
 import com.m21droid.github.presentation.previews.UsersPreview
 import com.m21droid.github.presentation.views.AppTopAppBar
 import com.m21droid.github.presentation.views.MainText
+import com.m21droid.github.presentation.views.PrimaryText
 
 @Preview
 @Composable
@@ -49,7 +51,7 @@ fun UsersScreenPreview2(@PreviewParameter(UsersPreview::class) data: UsersStateD
 fun UsersScreen(
     state: State<UsersState>,
     onClickSort: () -> Unit = {},
-    onClickItem: (UserModel) -> Unit = {},
+    onClickItem: (Pair<UserModel, MutableState<Boolean>>) -> Unit = {},
 ) {
     val space = 16.dp
     val value = state.value
@@ -103,12 +105,12 @@ fun UsersScreen(
                         verticalArrangement = Arrangement.spacedBy(space)
                     ) {
                         items(value.data.size) { index ->
-                            val user = value.data[index]
+                            val element = value.data[index]
                             UserItem(
-                                user = user.first,
-                                state = user.second,
+                                user = element.first,
+                                state = element.second,
                                 modifier = Modifier.clickable {
-                                    onClickItem(user.first)
+                                    onClickItem(element)
                                 }
                             )
                         }
@@ -124,18 +126,22 @@ fun UsersScreen(
                         verticalArrangement = Arrangement.spacedBy(space)
                     ) {
                         items(data.size) { index ->
-                            val user = data[index].first
+                            val element = data[index]
+                            val user = element.first
                             val first = user.login.first().uppercase()
                             if (index == 0 ||
                                 first != data[index - 1].first.login.first().uppercase()
                             ) {
-                                MainText(text = first, modifier = Modifier.padding(bottom = space))
+                                PrimaryText(
+                                    text = first,
+                                    modifier = Modifier.padding(bottom = space)
+                                )
                             }
                             UserItem(
                                 user = user,
-                                state = data[index].second,
+                                state = element.second,
                                 modifier = Modifier.clickable {
-                                    onClickItem(user)
+                                    onClickItem(element)
                                 }
                             )
                         }

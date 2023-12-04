@@ -70,6 +70,15 @@ class UsersViewModel @Inject constructor(
         }
     }
 
+    internal fun select(id: Int, isSelected: Boolean) {
+        getDataFromState()?.forEach {
+            if (it.first.id == id) {
+                it.second.value = isSelected
+                return
+            }
+        }
+    }
+
     override fun onCleared() {
         getDataFromState()?.mapNotNull {
             if (it.second.value) it.first else null

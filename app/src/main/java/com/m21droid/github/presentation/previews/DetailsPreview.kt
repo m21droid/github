@@ -1,9 +1,11 @@
 package com.m21droid.github.presentation.previews
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.m21droid.github.domain.models.UserDetailsModel
+import com.m21droid.github.presentation.screens.details.DetailsStateData
 
-class DetailsPreview : PreviewParameterProvider<UserDetailsModel> {
+class DetailsPreview : PreviewParameterProvider<DetailsStateData> {
 
     override val values = sequenceOf(
         UserDetailsModel(
@@ -27,6 +29,8 @@ class DetailsPreview : PreviewParameterProvider<UserDetailsModel> {
             name = "First Last",
             location = "Kremenchuk"
         )
-    )
+    ).map {
+        Pair(it, mutableStateOf(it.id % 2 == 1))
+    }
 
 }

@@ -22,6 +22,8 @@ class DetailsViewModel @Inject constructor(
     private val _detailsState = mutableStateOf<DetailsState>(DetailsState.Empty)
     internal val detailsState: State<DetailsState> = _detailsState
 
+    internal var isSelected = false
+
     init {
         savedStateHandle.get<String?>(ARG_LOGIN)?.let {
             getDetails(it)
@@ -38,7 +40,7 @@ class DetailsViewModel @Inject constructor(
                     is ResponseState.Failure -> DetailsState.Failure
                     is ResponseState.Success -> {
                         val data = it.data
-                        DetailsState.Display(data)
+                        DetailsState.Display(Pair(data, mutableStateOf(isSelected)))
                     }
                 }
             }
