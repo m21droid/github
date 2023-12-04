@@ -1,5 +1,6 @@
 package com.m21droid.github.presentation.screens.details
 
+import androidx.activity.compose.BackHandler
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,6 +11,7 @@ import com.m21droid.github.presentation.navigation.AppRoute
 import com.m21droid.github.presentation.navigation.NavConst.ARG_ID
 import com.m21droid.github.presentation.navigation.NavConst.ARG_LOGIN
 import com.m21droid.github.presentation.navigation.NavConst.ARG_SELECTED
+import com.m21droid.github.take
 
 fun NavGraphBuilder.detailsGraph(navigation: NavHostController) =
     composable(
@@ -18,20 +20,21 @@ fun NavGraphBuilder.detailsGraph(navigation: NavHostController) =
     ) {
         val viewModel = hiltViewModel<DetailsViewModel>()
 
-        navigation.previousBackStackEntry?.savedStateHandle?.apply {
-            get<Boolean>(ARG_SELECTED)?.let {
-                remove<Boolean>(ARG_SELECTED)
-                viewModel.isSelected = it
-            }
+        navigation.previousBackStackEntry?.take<Boolean>(ARG_SELECTED)?.let {
+            viewModel.isSelected = it
         }
 
-        val onClickBack: (DetailsStateData?) -> Unit = {
-            it?.apply {
+        val onClickBack: () -> Unit = {
+            (viewModel.detailsState.value as? DetailsState.Display)?.data?.apply {
                 navigation.previousBackStackEntry?.savedStateHandle?.apply {
                     set(ARG_ID, Pair(first.id, second.value))
                 }
             }
             navigation.popBackStack()
+        }
+
+        BackHandler {
+            onClickBack()
         }
 
         DetailsScreen(state = viewModel.detailsState, onClickBack = onClickBack)

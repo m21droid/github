@@ -60,7 +60,7 @@ fun DetailsScreenPreview2(@PreviewParameter(DetailsPreview::class) data: Details
 @Composable
 fun DetailsScreen(
     state: State<DetailsState>,
-    onClickBack: (DetailsStateData?) -> Unit = {},
+    onClickBack: () -> Unit = {},
 ) {
     val value = state.value
     Scaffold(
@@ -73,10 +73,7 @@ fun DetailsScreen(
                     Icon(
                         Icons.Filled.ArrowBack,
                         contentDescription = null,
-                        modifier = Modifier.clickable {
-                            val data = (state.value as? DetailsState.Display)?.data
-                            onClickBack(data)
-                        }
+                        modifier = Modifier.clickable(onClick = onClickBack)
                     )
                 },
                 actions = {

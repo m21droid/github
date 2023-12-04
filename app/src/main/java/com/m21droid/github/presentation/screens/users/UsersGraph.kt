@@ -9,16 +9,14 @@ import com.m21droid.github.domain.models.UserModel
 import com.m21droid.github.presentation.navigation.AppRoute
 import com.m21droid.github.presentation.navigation.NavConst.ARG_ID
 import com.m21droid.github.presentation.navigation.NavConst.ARG_SELECTED
+import com.m21droid.github.take
 
 fun NavGraphBuilder.usersGraph(navigation: NavHostController) =
     composable(route = AppRoute.Users.route) {
         val viewModel = hiltViewModel<UsersViewModel>()
 
-        navigation.currentBackStackEntry?.savedStateHandle?.apply {
-            get<Pair<Int, Boolean>>(ARG_ID)?.apply {
-                remove<Pair<Int, Boolean>>(ARG_ID)
-                viewModel.select(first, second)
-            }
+        navigation.currentBackStackEntry?.take<Pair<Int, Boolean>>(ARG_ID)?.apply {
+            viewModel.select(first, second)
         }
 
         val onClickSort: () -> Unit = {
