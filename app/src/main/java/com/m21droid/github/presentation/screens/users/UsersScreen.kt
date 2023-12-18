@@ -2,11 +2,9 @@ package com.m21droid.github.presentation.screens.users
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,15 +21,15 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import com.m21droid.github.R
 import com.m21droid.github.domain.models.UserModel
 import com.m21droid.github.presentation.Const.ERROR
-import com.m21droid.github.presentation.Const.padding
 import com.m21droid.github.presentation.previews.UsersPreview
 import com.m21droid.github.presentation.views.AppTopAppBar
+import com.m21droid.github.presentation.views.HeaderLazyColumn
 import com.m21droid.github.presentation.views.MainText
 import com.m21droid.github.presentation.views.PrimaryText
+import com.m21droid.github.presentation.views.space
 
 @Preview
 @Composable
@@ -53,7 +51,6 @@ fun UsersScreen(
     onClickSort: () -> Unit = {},
     onClickItem: (Pair<UserModel, MutableState<Boolean>>) -> Unit = {},
 ) {
-    val space = 16.dp
     val value = state.value
     Scaffold(
         topBar = {
@@ -82,8 +79,7 @@ fun UsersScreen(
         Box(
             modifier = Modifier
                 .padding(it)
-                .fillMaxSize()
-                .padding(padding),
+                .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             when (value) {
@@ -100,10 +96,7 @@ fun UsersScreen(
                 }
 
                 is UsersState.Display -> {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(space)
-                    ) {
+                    HeaderLazyColumn {
                         items(value.data.size) { index ->
                             val element = value.data[index]
                             UserItem(
@@ -121,10 +114,7 @@ fun UsersScreen(
                     val data = value.data.sortedBy { user ->
                         user.first.login.lowercase()
                     }
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(space)
-                    ) {
+                    HeaderLazyColumn {
                         items(data.size) { index ->
                             val element = data[index]
                             val user = element.first
